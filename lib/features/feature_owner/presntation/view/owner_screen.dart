@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:real_state/core/app_size.dart';
 import 'package:real_state/features/feature_chat/presntation/view/home_chat_screen.dart';
 import 'package:real_state/features/feature_owner/presntation/widget/alert_dialog.dart';
+import 'package:real_state/features/feature_owner/presntation/widget/alert_dialog_upload.dart';
 import 'package:real_state/features/feature_owner/presntation/widget/card_camera_owner.dart';
 import 'package:real_state/features/feature_owner/presntation/widget/card_details_owner.dart';
 import 'package:real_state/features/feature_owner/presntation/widget/card_load.dart';
@@ -57,6 +58,34 @@ class _OwnerScreenState extends State<OwnerScreen> {
         false;
   }
 
+  Future<bool> _onWillPopMap() async {
+    return await showDialog(
+          context: context,
+          // barrierDismissible: true,
+          builder: (context) => AlertDialogUploadFun(
+            title: 'UPLOAD MAP',
+            typeImage1: 'UPLOAD GOOGLE MAP TYPE A',
+            typeImage2: 'UPLOAD GOOGLE MAP TYPE B',
+            typeImage3: 'UPLOAD GOOGLE MAP TYPE C',
+          ),
+        ) ??
+        false;
+  }
+
+  Future<bool> _onWillPopBluePrint() async {
+    return await showDialog(
+      context: context,
+      // barrierDismissible: true,
+      builder: (context) => AlertDialogUploadFun(
+        title: 'UPLOAD BLUE PRINT',
+        typeImage1: 'UPLOAD BLUE PRINT TYPE A',
+        typeImage2: 'UPLOAD BLUE PRINT TYPE B',
+        typeImage3: 'UPLOAD BLUE PRINT TYPE C',
+      ),
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -80,10 +109,11 @@ class _OwnerScreenState extends State<OwnerScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushAndRemoveUntil(context,
+                          Navigator.pushAndRemoveUntil(
+                              context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      SearchProperty()), (route) => false);
+                                  builder: (context) => SearchProperty()),
+                              (route) => false);
                         },
                         child: Container(
                           height: 50.h,
@@ -499,18 +529,24 @@ class _OwnerScreenState extends State<OwnerScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CardLoad(title: 'LOAD PROPERTY PHOTOS'),
-                CardLoad(title: 'LOAD PROPERTY BL. PRINT'),
-                CardLoad(title: 'LOAD PROPERTY MAP'),
+                CardLoad(title: 'UPLOAD PROPERTY PHOTOS'),
+                CardLoad(
+                  title: 'UPLOAD PROPERTY BL. PRINT',
+                  pressCard: _onWillPopBluePrint,
+                ),
+                CardLoad(
+                  title: 'UPLOAD PROPERTY MAP',
+                  pressCard: _onWillPopMap,
+                ),
               ],
             ),
             SizedBox(width: 10.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CardLoad(title: 'LOAD PROPERTY VIDEOS'),
-                CardLoad(title: 'LOAD PROPERTY DETAILS'),
-                CardLoad(title: 'LOAD PROPERTY CONTRACT'),
+                CardLoad(title: 'UPLOAD PROPERTY VIDEOS'),
+                CardLoad(title: 'UPLOAD PROPERTY DETAILS'),
+                CardLoad(title: 'UPLOAD PROPERTY CONTRACT'),
               ],
             ),
           ],
@@ -681,8 +717,8 @@ class _OwnerScreenState extends State<OwnerScreen> {
                                 padding: EdgeInsets.symmetric(
                                     vertical: 15.h, horizontal: 15.w),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1),
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
                                 ),
                                 child: Row(
                                   children: [
@@ -761,8 +797,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
                                   left: 10.w,
                                   child: SizedBox(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       // crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         CardCameraOwner(
@@ -779,12 +814,10 @@ class _OwnerScreenState extends State<OwnerScreen> {
                                   children: [
                                     SizedBox(height: 8.h),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         CardMoreDetailsOwner(
-                                          image:
-                                              'assets/images/sold_owner.png',
+                                          image: 'assets/images/sold_owner.png',
                                           title: 'SOLD',
                                         ),
                                         CardMoreDetailsOwner(
@@ -793,18 +826,15 @@ class _OwnerScreenState extends State<OwnerScreen> {
                                           title: 'LIKE(125)',
                                         ),
                                         CardMoreDetailsOwner(
-                                          image:
-                                              'assets/images/show_owner.png',
+                                          image: 'assets/images/show_owner.png',
                                           title: 'SEEN(250)',
                                         ),
                                         CardMoreDetailsOwner(
-                                          image:
-                                              'assets/images/edit_owner.png',
+                                          image: 'assets/images/edit_owner.png',
                                           title: 'EDIT',
                                         ),
                                         CardMoreDetailsOwner(
-                                          image:
-                                              'assets/images/chat_owner.png',
+                                          image: 'assets/images/chat_owner.png',
                                           title: 'CHAT',
                                           showNum: true,
                                           pressCard: () {

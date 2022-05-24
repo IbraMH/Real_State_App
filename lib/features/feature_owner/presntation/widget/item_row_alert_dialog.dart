@@ -5,9 +5,11 @@ import 'package:real_state/features/widget/custome_text.dart';
 
 class ItemRowAlertDialog extends StatelessWidget {
   String title;
+  String image;
 
   ItemRowAlertDialog({
     required this.title,
+    this.image = 'assets/images/image.png',
   });
 
   @override
@@ -33,7 +35,7 @@ class ItemRowAlertDialog extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 2.h),
               child: Image.asset(
-                'assets/images/image.png',
+                image,
                 width: 30.w,
                 height: 30.h,
               ),
